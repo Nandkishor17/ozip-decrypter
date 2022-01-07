@@ -14,9 +14,9 @@ on:
     types: [started]
 
 env:
-  FIRMWARE_LINK: https://download.c.realme.com/osupdate/RMX1851EX_11_OTA_1100_all_afysQxXkAd0p.ozip
-  FIRMWARE_NAME: RMX1851EX_11_OTA_1100_all_afysQxXkAd0p.ozip
-  FIRMWARE_ZIP_NAME: RMX1851EX_11_OTA_1100_all_afysQxXkAd0p
+  FIRMWARE_LINK: https://download.c.realme.com/osupdate/RMX1971EX_11_OTA_1140_all_D5PMgyC9kHe5.ozip
+  FIRMWARE_NAME: RMX1971EX_11_OTA_1140_all_D5PMgyC9kHe5.ozip
+  FIRMWARE_ZIP_NAME: RMX1971EX_11_OTA_1140_all_D5PMgyC9kHe5
   TZ: Asia/Kolkata
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
          run: |
             sudo -E apt-get -qq update
             sudo apt install aria2 expect -y
-            aria2c $FIRMWARE_LINK
+            aria2c $https://download.c.realme.com/osupdate/RMX1971EX_11_OTA_1140_all_D5PMgyC9kHe5.ozip
              
        - name: Decrypting Ozip Now
          run: |
@@ -41,7 +41,7 @@ jobs:
              sudo -H pip install setuptools wheel docopt pycryptodome zip
              wget https://raw.githubusercontent.com/techyminati/oppo_ozip_decrypt/master/ozipdecrypt.py
              sudo python ozipdecrypt.py $FIRMWARE_NAME
-             zip -r $FIRMWARE_ZIP_NAME.zip ./out/*
+             zip -r $RMX1971EX_11_OTA_1140_all_D5PMgyC9kHe5.zip ./out/*
 
        - name: Upload Decrypted Zip
          run: |
@@ -54,7 +54,7 @@ jobs:
               expect \"sftp> \"
               send \"cd ${{ secrets.SFDIR }}\r\"
               set timeout -1
-              send \"put $FIRMWARE_ZIP_NAME.zip\r\"
+              send \"put $RMX1971EX_11_OTA_1140_all_D5PMgyC9kHe5.zip\r\"
               expect \"Uploading\"
               expect \"100%\"
               expect \"sftp>\"
